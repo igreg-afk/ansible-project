@@ -18,4 +18,5 @@
 #become is equivalent to sudo.
 #we determine the apt module.
 #and name is the package name that we want to install.
+#state: we can say latest to get the latest version of a package, or absent to remove it.
 
