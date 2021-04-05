@@ -1,0 +1,31 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+   - name: install apache and php packages on Centos distros
+     package:
+       name: 
+         - "{{ apache_package }}"
+         - "{{ php_package }}"
+       state: latest
+       update_cache: yes
+     when: ansible_distribution in ["Ubuntu", "Debian", "CentOS"]
+
+ 
+
+#become is equivalent to sudo.
+#we determine the apt module.
+#and name is the package name that we want to install.
+#state: we can say latest to get the latest version of a package, or absent to remove it.
+#we can use when against every variable in gather_facts module
+#package: Generic OS package manager it uses apt,dnf,pacman,yum accordingly to the server.
+
+#the apache_package and php_package are just a variable names, you can choose whatever you want, and assign it to the package name you want to install.
+#we can say that 192.168.1.254 is an ip address of CentOS based server
+#this is content of your inventory file (make sure to get rid of #).
+#34.82.237.119 apache_package=apache2 php_package=libapache2-mod-php
+#104.196.241.168 apache_package=apache2 php_package=libapache2-mod-php 
+#35.247.84.155 apache_package=apache2 php_package=libapache2-mod-php
+#192.168.1.254 apache_package=httpd php_package=php

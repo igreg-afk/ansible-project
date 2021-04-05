@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: install apache2 and php packages
+    apt:
+      update_cache: yes
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distrubtion in ["Ubuntu", "Debian"]
+
+  - name: install apache and php packages on Centos distros
+    dnf:
+      name: 
+        - httpd
+        - php
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "CentOS" and ansible_distribution_version == "8"
+
+ 
+
+#become is equivalent to sudo.
+#we determine the apt module.
+#and name is the package name that we want to install.
+#state: we can say latest to get the latest version of a package, or absent to remove it.
+#we can use when against every variable in gather_facts module
+
