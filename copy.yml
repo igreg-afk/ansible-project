@@ -1,0 +1,14 @@
+---
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: copy HTML file to the webserver
+    tags: copy,webserver,HTML_file
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+#mode signifies file permissions
