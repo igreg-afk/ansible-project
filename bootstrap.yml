@@ -30,6 +30,7 @@
         user: zrigos
         key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDD46lWfT49hbPfVLyH2ZOPieYZ1xupyQpTgSauqm73eF3qOEE5TeCsNYoqKZlnijle8LZA38XUz5xUTtEySmEsjLtqYf/KoUFrYZSzsVDYGWVikKYEtqJV/WPPgH9Eox+VuR4vCzebw+rbDfnGzxfWPoaVlmpC6NA9i29ZWBSoW2nZN31HS5GtweA76Ijm+UV4diAKtR/vvX3/V/tIyuSiBYXhaSHquKqD39rFs4gJHoVW9C88t+zbnNrBn+ZV6NF672U66gI5MmqOpdrMBICYdYZHr6LPywfdJw1yCOw/FvXustyqbtyESQggPlW0aXpv1gsZbHEsPcdlk3aZtLem2zAToNG3VTERAYVox59t2rrh+tte5TQ0oAFaFpDAb10CiD2K/KyuvHlZLNsO0hRsOT+SoYrpaMDQ4Pj2eFv3rfFiUzVFwtPJItx2rA1VugNZQtNeY3jfxsQZzcXM0Bsdd/NcZh6+C401A/oUG/V/WIKZLeKdu4n1WzRzj+Gi18k= igreg@igreg
 "
+#        state: absent this will remove the key
     - name: add the sudoers file for zrigos
       tags: sudo,always
       copy:
