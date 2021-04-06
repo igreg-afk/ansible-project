@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   
+    - name: create zrigos user
+      tags: always
+      user:
+        name: zrigos
+        group: root
+    - name: add suddoers file for zrigos
+      tags: always
+      copy:
+        src: sudoer_zrigos
+        dest: /etc/sudoers.d/zrigos
+        owner: root
+        group: root
+        mode: 0440
+#        state: absent
+#to delete a user make sure to use state as absent.
+   
