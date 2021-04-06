@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: install updates (Debian Based servers)
+      tags: always,update,Debian
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_distribution in ["Debian","Ubuntu"]
+
+    - name: install updates (CentOS)
+      tags: always,CentOS
+      dnf:
+        update_cache: yes
+        update_only: yes
+      when: ansible_distribution == "CentOS"
+
+- hosts: all
+  become: true
+  tasks:
+    - name: Create a new user called zrigos
+      tags: always
+      user:
+        name: zrigos
+        group: root
+    - name: add ssh key for zrigos
+      tags: new_user, always
+      authorized_key:
+        user: zrigos
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDD46lWfT49hbPfVLyH2ZOPieYZ1xupyQpTgSauqm73eF3qOEE5TeCsNYoqKZlnijle8LZA38XUz5xUTtEySmEsjLtqYf/KoUFrYZSzsVDYGWVikKYEtqJV/WPPgH9Eox+VuR4vCzebw+rbDfnGzxfWPoaVlmpC6NA9i29ZWBSoW2nZN31HS5GtweA76Ijm+UV4diAKtR/vvX3/V/tIyuSiBYXhaSHquKqD39rFs4gJHoVW9C88t+zbnNrBn+ZV6NF672U66gI5MmqOpdrMBICYdYZHr6LPywfdJw1yCOw/FvXustyqbtyESQggPlW0aXpv1gsZbHEsPcdlk3aZtLem2zAToNG3VTERAYVox59t2rrh+tte5TQ0oAFaFpDAb10CiD2K/KyuvHlZLNsO0hRsOT+SoYrpaMDQ4Pj2eFv3rfFiUzVFwtPJItx2rA1VugNZQtNeY3jfxsQZzcXM0Bsdd/NcZh6+C401A/oUG/V/WIKZLeKdu4n1WzRzj+Gi18k= igreg@igreg
+"
+    - name: add the sudoers file for zrigos
+      tags: sudo,always
+      copy:
+        src: sudoer_zrigos
+        dest: /etc/sudoers.d/zrigos
+        owner: root
+        group: root
+        mode: 0440
+#make sure to change the user name to whatever you want.
+#make sure to change the key to yout public ssh key
+#make sure that the content of your sudoer_username as follow:
+#zrigos ALL=(ALL) NOPASSWD: ALL 
+#where zrigod is remplaced with your username.
