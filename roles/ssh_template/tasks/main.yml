@@ -1,0 +1,12 @@
+- name: generate sshd_config file from templates.
+  tags: ssh, always
+  template:
+    src: "{{ ssh_template_file }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+    notify: restart_sshd
+
+#notify: think of it as a function , when ever a change is made to task we run the restart_sshd handler, which is basically a task.
+
